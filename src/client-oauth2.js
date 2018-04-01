@@ -365,11 +365,12 @@ ClientOAuth2Token.prototype.refresh = function (opts) {
     url: options.accessTokenUri,
     method: 'POST',
     headers: Object.assign({}, DEFAULT_HEADERS, {
-      Authorization: auth(options.clientId, options.clientSecret)
+      Authorization: "Bearer " + this.accessToken
     }),
     body: {
       refresh_token: this.refreshToken,
-      grant_type: 'refresh_token'
+      grant_type: 'refresh_token',
+      client_id: options.clientId
     }
   }, options))
     .then(function (data) {
